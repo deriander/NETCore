@@ -1,0 +1,14 @@
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.deps.json
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.runtimeconfig.json
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.runtimeconfig.dev.json
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.dll
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.pdb
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.csprojAssemblyReference.cache
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.csproj.CoreCompileInputs.cache
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.RazorAssemblyInfo.cache
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.RazorAssemblyInfo.cs
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.AssemblyInfoInputs.cache
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.AssemblyInfo.cs
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.RazorTargetAssemblyInfo.cache
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.dll
+C:\__VISUAL STUDIO PROJECT\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.pdb
