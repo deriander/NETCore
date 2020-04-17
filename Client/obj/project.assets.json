@@ -12600,11 +12600,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\Client\\Client.csproj",
+      "projectUniqueName": "C:\\_GITHUB\\NETCore\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\Client\\Client.csproj",
+      "projectPath": "C:\\_GITHUB\\NETCore\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\fachryan.zuhri\\.nuget\\packages\\",
-      "outputPath": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\Client\\obj\\",
+      "outputPath": "C:\\_GITHUB\\NETCore\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12623,8 +12623,8 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\__VISUAL STUDIO PROJECT\\NETCore\\NETCore\\NETCore.csproj": {
-              "projectPath": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\NETCore\\NETCore.csproj"
+            "C:\\_GITHUB\\NETCore\\NETCore\\NETCore.csproj": {
+              "projectPath": "C:\\_GITHUB\\NETCore\\NETCore\\NETCore.csproj"
             }
           }
         }

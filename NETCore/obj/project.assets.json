@@ -12580,11 +12580,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\NETCore\\NETCore.csproj",
+      "projectUniqueName": "C:\\_GITHUB\\NETCore\\NETCore\\NETCore.csproj",
       "projectName": "NETCore",
-      "projectPath": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\NETCore\\NETCore.csproj",
+      "projectPath": "C:\\_GITHUB\\NETCore\\NETCore\\NETCore.csproj",
       "packagesPath": "C:\\Users\\fachryan.zuhri\\.nuget\\packages\\",
-      "outputPath": "C:\\__VISUAL STUDIO PROJECT\\NETCore\\NETCore\\obj\\",
+      "outputPath": "C:\\_GITHUB\\NETCore\\NETCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

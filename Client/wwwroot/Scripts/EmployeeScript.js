@@ -8,8 +8,8 @@
             //dataSrc: ""
         },
         "columnDefs": [
-            { "orderable": false, "targets": 3 },
-            { "searchable": false, "targets": 3 }
+            { "orderable": false, "targets": 8 },
+            { "searchable": false, "targets": 8 }
         ],
         "columns": [
             { "data": "fullName" },
@@ -55,6 +55,7 @@ function ShowModal() {
     $('#Id').val('');
     $('#FirstName').val('');
     $('#LastName').val('');
+    $('#CBDept').val('0');
     $('#Email').val('');
     $('#BirthDate').val('');
     $('#PhoneNumber').val('');
@@ -212,10 +213,7 @@ function GetById(Id) {
             $('#LastName').val(obj.lastName);
             $('#CBDept').val(obj.department_Id);
             $('#Email').val(obj.email);
-            function birthdate () {
-                return moment(obj.birthDate).format('DD/MM/YYYY');
-            };
-            $('#BirthDate').val(birthdate);
+            $('#BirthDate').val(moment(obj.birthDate).format('YYYY-MM-DD'));
             $('#PhoneNumber').val(obj.phoneNumber);
             $('#Address').val(obj.address);
             $('#myModal').modal('show');
