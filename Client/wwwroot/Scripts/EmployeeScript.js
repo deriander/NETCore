@@ -39,7 +39,7 @@
             },
             {
                 "data": null, "render": function (data, type, row) {
-                    return '<button type="button" class="btn btn-warning" id="EditBtn" data-toggle="tooltip" data-placement="top" title="Edit" onclick="return GetById(' + row.id + ')"><i class="mdi mdi-pencil"></i></button> <button type="button" class="btn btn-danger" id="DeleteBtn" data-toggle="tooltip" data-placement="top" title="Delete" onclick="return Delete(' + row.id + ')"><i class="mdi mdi-delete"></i></button>';
+                    return '<button type="button" class="btn btn-warning" id="EditBtn" data-toggle="tooltip" data-placement="top" title="Edit" onclick="return GetById(\'' + row.email + '\')"><i class="mdi mdi-pencil"></i></button> <button type="button" class="btn btn-danger" id="DeleteBtn" data-toggle="tooltip" data-placement="top" title="Delete" onclick="return Delete(\'' + row.email + '\')"><i class="mdi mdi-delete"></i></button>';
                 }
             }
         ]
@@ -62,6 +62,10 @@ function ShowModal() {
     $('#Address').val('');
     $('#UpdateBtn').hide();
     $('#SaveBtn').show();
+    $('#Email').show();
+    $('#Password').show();
+    $('#labelPassword').show();
+    $('#labelEmail').show();
 }
 
 
@@ -104,19 +108,20 @@ LoadDepartment($('#CBDept'));
 
 function Save() {
     var Employee = new Object();
+    Employee.email = $('#Email').val();
+    Employee.password = $('#Password').val();
     Employee.firstName = $('#FirstName').val();
     Employee.lastName = $('#LastName').val();
     Employee.department_Id = $('#CBDept').val();
-    Employee.email = $('#Email').val();
     Employee.birthDate = $('#BirthDate').val();
     Employee.phoneNumber = $('#PhoneNumber').val();
     Employee.address = $('#Address').val();
     $.ajax({
         type: 'POST',
-        url: '/Employee/InsertOrEdit/',
+        url: '/Employee/Insert/',
         data: Employee
     }).then((result) => {
-        if (result.statusCode === 201) {
+        if (result.statusCode === 200) {
             Swal.fire({
                 position: 'center',
                 type: 'success',
@@ -133,9 +138,7 @@ function Save() {
 }
 
 function Edit() {
-
     var Employee = new Object();
-    Employee.id = $('#Id').val();
     Employee.firstName = $('#FirstName').val();
     Employee.lastName = $('#LastName').val();
     Employee.department_Id = $('#CBDept').val();
@@ -145,7 +148,7 @@ function Edit() {
     Employee.address = $('#Address').val();
     $.ajax({
         type: 'POST',
-        url: '/Employee/InsertOrEdit/',
+        url: '/Employee/Edit/',
         data: Employee
     }).then((result) => {
 
@@ -165,7 +168,7 @@ function Edit() {
     });
 }
 
-function Delete(Id) {
+function Delete(Email) {
     Swal.fire({
         title: "Are you sure?",
         showCanceButton: true,
@@ -176,7 +179,7 @@ function Delete(Id) {
         if (result.value) {
             $.ajax({
                 url: '/Employee/Delete/',
-                data: { Id: Id }
+                data: { "Email": Email }
             }).then((result) => {
                 if (result.statusCode === 200) {
                     Swal.fire({
@@ -197,18 +200,16 @@ function Delete(Id) {
     });
 }
 
-
-
-function GetById(Id) {
+function GetById(Email) {
     $.ajax({
-        url: "/Employee/GetById/" + Id,
+        url: "/Employee/GetById/" + Email,
         type: "GET",
         contentType: "application/json;charset=utf-8",
         dataType: "json",
+        data: {"Email": Email},
         success: function (result) {
             var _result = JSON.parse(result);
             var obj = JSON.parse(_result);
-            $('#Id').val(obj.id);
             $('#FirstName').val(obj.firstName);
             $('#LastName').val(obj.lastName);
             $('#CBDept').val(obj.department_Id);
@@ -219,6 +220,10 @@ function GetById(Id) {
             $('#myModal').modal('show');
             $('#UpdateBtn').show();
             $('#SaveBtn').hide();
+            $('#Email').hide();
+            $('#Password').hide();
+            $('#labelPassword').hide();
+            $('#labelEmail').hide();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

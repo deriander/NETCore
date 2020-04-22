@@ -73,6 +73,9 @@ namespace NETCore.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -112,6 +115,8 @@ namespace NETCore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -186,7 +191,7 @@ namespace NETCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTimeOffset?>("CreateDate");
+                    b.Property<DateTimeOffset>("CreateDate");
 
                     b.Property<DateTimeOffset?>("DeleteDate");
 
@@ -203,21 +208,18 @@ namespace NETCore.Migrations
 
             modelBuilder.Entity("NETCore.Model.EmployeeModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("Email")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Address");
 
                     b.Property<DateTime>("BirthDate");
 
-                    b.Property<DateTimeOffset?>("CreateDate");
+                    b.Property<DateTimeOffset>("CreateDate");
 
                     b.Property<DateTimeOffset?>("DeleteDate");
 
                     b.Property<int>("Department_Id");
-
-                    b.Property<string>("Email");
 
                     b.Property<string>("FirstName");
 
@@ -229,11 +231,21 @@ namespace NETCore.Migrations
 
                     b.Property<DateTimeOffset?>("UpdateDate");
 
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.HasIndex("Department_Id");
 
                     b.ToTable("TB_M_Employee");
+                });
+
+            modelBuilder.Entity("NETCore.Model.UserModel", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+
+                    b.ToTable("UserModel");
+
+                    b.HasDiscriminator().HasValue("UserModel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

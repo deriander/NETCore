@@ -13,5 +13,7 @@ namespace NETCore.Context
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
         public DbSet<DepartmentModel> Department { get; set; }
         public DbSet<EmployeeModel> Employee { get; set; }
+        public DbSet<UserModel> User { get; set; }
+
     }
 }

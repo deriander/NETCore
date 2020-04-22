@@ -17,6 +17,7 @@ C:\_GITHUB\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.runtimeconfig.json
 C:\_GITHUB\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.runtimeconfig.dev.json
 C:\_GITHUB\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.dll
 C:\_GITHUB\NETCore\NETCore\bin\Debug\netcoreapp2.1\NETCore.pdb
+C:\_GITHUB\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.csprojAssemblyReference.cache
 C:\_GITHUB\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.csproj.CoreCompileInputs.cache
 C:\_GITHUB\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.RazorAssemblyInfo.cache
 C:\_GITHUB\NETCore\NETCore\obj\Debug\netcoreapp2.1\NETCore.RazorAssemblyInfo.cs

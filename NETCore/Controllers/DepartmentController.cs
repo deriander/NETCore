@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Base;
 using NETCore.Model;
@@ -9,6 +10,7 @@ using NETCore.Repository.Data;
 
 namespace NETCore.Controllers
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[Controller]")]
     [ApiController]
     public class DepartmentController : BasesController<DepartmentModel, DepartmentRepository>
@@ -18,6 +20,16 @@ namespace NETCore.Controllers
         {
             this._repository = departmentRepository;
         }
+
+        
+        [HttpPost]
+        public async Task<ActionResult<DepartmentModel>> Post(DepartmentModel entity)
+        {
+            await _repository.Post(entity);
+            return CreatedAtAction("Get", new { id = entity.Id }, entity);
+
+        }
+        
 
         [HttpPut("{id}")]
         public async Task<ActionResult<DepartmentModel>> Put(int id, DepartmentModel entity)

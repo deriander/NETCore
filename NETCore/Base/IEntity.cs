@@ -7,9 +7,9 @@ namespace NETCore.Base
 {
     public interface IEntity
     {
-        int Id { get; set; }
+        //int Id { get; set; }
         bool IsDelete { get; set; }
-        Nullable<DateTimeOffset> CreateDate { get; set; }
+        DateTimeOffset CreateDate { get; set; }
         Nullable<DateTimeOffset> UpdateDate { get; set; }
         Nullable<DateTimeOffset> DeleteDate { get; set; }
 

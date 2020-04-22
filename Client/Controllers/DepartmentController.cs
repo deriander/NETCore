@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Model;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ namespace Client.Controllers
 {
     public class DepartmentController : Controller
     {
-        readonly HttpClient client = new HttpClient
+        private HttpClient client = new HttpClient
         {
             BaseAddress = new Uri("https://localhost:44342/api/")
         };
@@ -20,11 +21,17 @@ namespace Client.Controllers
         // GET: Data
         public IActionResult Index()
         {
-            return View(LoadDepartment());
+            var role = HttpContext.Session.GetString("Role");
+            if (role == "Admin")
+            {
+                return View(LoadDepartment());
+            }
+            return RedirectToAction("AccessDenied", "User");
         }
 
         public JsonResult LoadDepartment()
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             DepartmentJson departmentViewModel = null;
             var responseTask = client.GetAsync("Department");
             responseTask.Wait();
@@ -61,20 +68,20 @@ namespace Client.Controllers
             return Json(data);
         }
 
-        public JsonResult InsertOrEdit(DepartmentViewModel departmentViewModel)
+        public JsonResult InsertOrEdit(DepartmentModel department)
         {
-            var myContent = JsonConvert.SerializeObject(departmentViewModel);
+            var myContent = JsonConvert.SerializeObject(department);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
             byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            if (departmentViewModel.Id == 0)
+            if (department.Id == 0)
             {
                 var result = client.PostAsync("Department", byteContent).Result;
                 return Json(result);
             }
             else
             {
-                var result = client.PutAsync("Department/" + departmentViewModel.Id, byteContent).Result;
+                var result = client.PutAsync("Department/" + department.Id, byteContent).Result;
                 return Json(result);
             }
         }

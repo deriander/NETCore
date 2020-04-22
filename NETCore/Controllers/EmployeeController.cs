@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Base;
 using NETCore.Model;
@@ -9,6 +10,7 @@ using NETCore.Repository.Data;
 
 namespace NETCore.Controllers
 {
+    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[Controller]")]
     [ApiController]
     public class EmployeeController : BasesController<EmployeeModel, EmployeeRepository>
@@ -19,6 +21,16 @@ namespace NETCore.Controllers
             this._repository = employeeRepository;
         }
 
+        // insert data
+        [HttpPost]
+        public async Task<ActionResult<EmployeeViewModel>> Post(EmployeeViewModel entity)
+        {
+            await _repository.InsertEmployee(entity);
+            return CreatedAtAction("Get", new { email = entity.Email }, entity);
+
+        }
+
+        // get all
         [HttpGet]
         public async Task<ActionResult<EmployeeViewModel>> Get()
         {
@@ -26,10 +38,24 @@ namespace NETCore.Controllers
             return Ok(new { data = get });
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<EmployeeModel>> Put(int id, EmployeeModel entity)
+        //get by email
+        [HttpGet("{email}")]
+        public async Task<ActionResult<EmployeeModel>> Get(string email)
         {
-            var put = await _repository.Get(id);
+            var get = await _repository.Get(email);
+            if (get == null)
+            {
+                return NotFound();
+            }
+            return Ok(get);
+        }
+
+        // update
+        [HttpPut("{email}")]
+        public async Task<ActionResult<EmployeeModel>> Put(string email, EmployeeModel entity)
+        {
+
+            var put = await _repository.Get(email);
             if (put == null)
             {
                 return NotFound();
@@ -62,6 +88,18 @@ namespace NETCore.Controllers
             put.UpdateDate = DateTimeOffset.Now;
             await _repository.Put(put);
             return Ok("Successfully updated data");
+        }
+
+        // delete
+        [HttpDelete("{email}")]
+        public async Task<ActionResult<EmployeeModel>> Delete(string email)
+        {
+            var delete = await _repository.Delete(email);
+            if (delete == null)
+            {
+                return NotFound();
+            }
+            return delete;
         }
     }
 }
