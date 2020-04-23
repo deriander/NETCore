@@ -25,7 +25,18 @@ namespace NETCore.Repository.Data
 
         DynamicParameters parameters = new DynamicParameters();
         IConfiguration _configuration { get; }
-        
+
+        // get value for morris chart
+        public async Task<IEnumerable<ChartViewModel>> GetDonutchartData()
+        {
+            using (var connection = new SqlConnection(_configuration.GetConnectionString("MyConnection")))
+            {
+               var procedureName = "SP_GetPiechartData_TB_M_Employee";
+               var employees = await connection.QueryAsync<ChartViewModel>(procedureName, parameters, commandType: CommandType.StoredProcedure);
+               return employees;
+            }     
+        }
+
         // insert
         public async Task<IEnumerable<EmployeeViewModel>> InsertEmployee(EmployeeViewModel data)
         {

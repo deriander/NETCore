@@ -230,3 +230,48 @@ function GetById(Email) {
         }
     });
 }
+
+$(function DonutChart() {
+    $.ajax({
+        type: 'GET',
+        url: '/Employee/GetDonutchart/',
+        success: function (data) {
+            Morris.Donut({
+                element: 'DonutChart',
+                data: $.each(data, function(index, val){
+                    [{
+                        label: data.label,
+                        value: data.value
+                    }]
+                }),
+                resize: true,
+                colors: ['#009efb', '#55ce63', '#2f3d4a']
+            });
+        }
+    });
+})
+
+$(function BarChart() {
+    $.ajax({
+        type: 'GET',
+        url: '/Employee/GetBarchart/',
+        success: function (data) {
+            Morris.Bar({
+                element: 'BarChart',
+                data: $.each(data, function (index, val) {
+                    [{
+                        y: data.y,
+                        a: data.a
+                    }]
+                }),
+                xkey: 'y',
+                ykeys: ['a'],
+                labels: ['A'],
+                barColors: ['#55ce63'],
+                hideHover: 'auto',
+                gridLineColor: '#eef0f2',
+                resize: true
+            });
+        }
+    });
+})

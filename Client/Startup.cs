@@ -30,8 +30,11 @@ namespace Client
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddDistributedMemoryCache();
             services.AddSession(options => {
                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             }); // tambahin ini
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

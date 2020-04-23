@@ -50,6 +50,7 @@ namespace Client.Controllers
 
         public JsonResult GetById(string Email)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             object data = null;
             var responseTask = client.GetAsync("Employee/" + Email);
             responseTask.Wait();
@@ -70,6 +71,7 @@ namespace Client.Controllers
 
         public JsonResult Insert(EmployeeViewModel employeeViewModel)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             var myContent = JsonConvert.SerializeObject(employeeViewModel);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
@@ -81,6 +83,7 @@ namespace Client.Controllers
 
         public JsonResult Edit(EmployeeModel model)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             var myContent = JsonConvert.SerializeObject(model);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
@@ -91,8 +94,71 @@ namespace Client.Controllers
 
         public JsonResult Delete(string Email)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             var result = client.DeleteAsync("Employee/" + Email).Result;
             return Json(result);
+        }
+
+        public JsonResult GetDonutchart()
+        {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
+            IEnumerable<ChartViewModel> donutChart = null;
+            List<ChartViewModel> dataList = new List<ChartViewModel>();
+
+            var responseTask = client.GetAsync("Employee/Donutchart");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<ChartViewModel>>();
+                data.Wait();
+                donutChart = data.Result;
+
+                foreach (var row in donutChart)
+                {
+                    ChartViewModel details = new ChartViewModel();
+                    details.label = row.label.ToString();
+                    details.value = row.value;
+                    dataList.Add(details);
+                }
+               
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "failed to get data");
+            }
+            return Json(dataList);
+        }
+
+        public JsonResult GetBarchart()
+        {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
+            IEnumerable<ChartViewModel> barChart = null;
+            List<ChartViewModel> dataList = new List<ChartViewModel>();
+
+            var responseTask = client.GetAsync("Employee/Donutchart");
+            responseTask.Wait();
+            var result = responseTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                var data = result.Content.ReadAsAsync<IList<ChartViewModel>>();
+                data.Wait();
+                barChart = data.Result;
+
+                foreach (var row in barChart)
+                {
+                    ChartViewModel details = new ChartViewModel();
+                    details.y = row.label.ToString();
+                    details.a = row.value;
+                    dataList.Add(details);
+                }
+
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "failed to get data");
+            }
+            return Json(dataList);
         }
     }
 }

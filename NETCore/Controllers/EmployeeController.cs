@@ -10,7 +10,7 @@ using NETCore.Repository.Data;
 
 namespace NETCore.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[Controller]")]
     [ApiController]
     public class EmployeeController : BasesController<EmployeeModel, EmployeeRepository>
@@ -30,8 +30,8 @@ namespace NETCore.Controllers
 
         }
 
-        // get all
-        [HttpGet]
+       // get all
+       [HttpGet]
         public async Task<ActionResult<EmployeeViewModel>> Get()
         {
             var get = await _repository.GetAllEmployee();
@@ -100,6 +100,13 @@ namespace NETCore.Controllers
                 return NotFound();
             }
             return delete;
+        }
+
+        // Get Donutchart Data
+        [HttpGet("Donutchart")]
+        public async Task<IEnumerable<ChartViewModel>> GetDonutchartData()
+        {
+            return await _repository.GetDonutchartData();
         }
     }
 }

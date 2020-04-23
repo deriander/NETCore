@@ -65,7 +65,8 @@ namespace Client.Controllers
         }
 
         public JsonResult GetById()
-        {   
+        {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             var email = HttpContext.Session.GetString("Email");
             object data = null;
             var responseTask = client.GetAsync("Employee/" + email);
@@ -85,7 +86,19 @@ namespace Client.Controllers
 
         }
 
-        public JsonResult Insert(EmployeeViewModel employeeViewModel)
+        public JsonResult Edit(EmployeeModel employee)
+        {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
+            var myContent = JsonConvert.SerializeObject(employee);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var result = client.PutAsync("Employee/" + employee.Email, byteContent).Result;
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult Register(EmployeeViewModel employeeViewModel)
         {
             var myContent = JsonConvert.SerializeObject(employeeViewModel);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
@@ -95,16 +108,6 @@ namespace Client.Controllers
             var result = client.PostAsync("User/Register", byteContent).Result;
             return Json(result);
             
-        }
-
-        public JsonResult Edit(EmployeeModel employee)
-        {
-            var myContent = JsonConvert.SerializeObject(employee);
-            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-            var byteContent = new ByteArrayContent(buffer);
-            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            var result = client.PutAsync("Employee/" + employee.Email, byteContent).Result;
-            return Json(result);
         }
 
         [HttpPost]

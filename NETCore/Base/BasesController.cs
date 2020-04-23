@@ -8,7 +8,7 @@ using NETCore.Repository.Interface;
 
 namespace NETCore.Base
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[controller]")]
     [ApiController]
     public class BasesController<TEntity, TRepository> : ControllerBase

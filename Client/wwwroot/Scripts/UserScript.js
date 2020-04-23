@@ -28,7 +28,7 @@ function RenderDepartment(element) {
 }
 LoadDepartment($('#CBDept'));
 
-function Insert() {
+function Register() {
     var Employee = new Object();
     Employee.email = $('#Email').val();
     Employee.password = $('#Password').val();
@@ -40,7 +40,7 @@ function Insert() {
     Employee.address = $('#Address').val();
     $.ajax({
         type: 'POST',
-        url: '/User/Insert/',
+        url: '/User/Register/',
         data: Employee
     }).then((result) => {
         if (result.statusCode === 200) {

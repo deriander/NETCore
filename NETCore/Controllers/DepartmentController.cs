@@ -10,7 +10,7 @@ using NETCore.Repository.Data;
 
 namespace NETCore.Controllers
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     [Route("api/[Controller]")]
     [ApiController]
     public class DepartmentController : BasesController<DepartmentModel, DepartmentRepository>

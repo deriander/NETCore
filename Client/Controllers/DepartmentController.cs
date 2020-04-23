@@ -51,6 +51,7 @@ namespace Client.Controllers
 
         public JsonResult GetById(int Id)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             DepartmentViewModel data = null;
             var responseTask = client.GetAsync("Department/" + Id);
             responseTask.Wait();
@@ -70,6 +71,7 @@ namespace Client.Controllers
 
         public JsonResult InsertOrEdit(DepartmentModel department)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             var myContent = JsonConvert.SerializeObject(department);
             var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
             var byteContent = new ByteArrayContent(buffer);
@@ -88,6 +90,7 @@ namespace Client.Controllers
 
         public JsonResult Delete(int Id)
         {
+            client.DefaultRequestHeaders.Add("Authorization", HttpContext.Session.GetString("JWTToken"));
             var result = client.DeleteAsync("Department/" + Id).Result;
             return Json(result);
         }
